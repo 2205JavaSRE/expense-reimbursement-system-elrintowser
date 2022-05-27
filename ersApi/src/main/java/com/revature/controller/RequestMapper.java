@@ -4,12 +4,12 @@ import com.revature.models.User;
 
 import io.javalin.Javalin;
 
-public class RequestController {
+public class RequestMapper {
 	
 	private UserController userController = new UserController();
 	private TicketController ticketController = new TicketController();
 	
-	public RequestController() {
+	public RequestMapper() {
 		super();
 	}
 	
@@ -53,10 +53,6 @@ public class RequestController {
 		
 		app.post("/user/ticket", ctx -> {
 			//create ticket
-		});
-		
-		app.get("/tickets", ctx -> {
-			//get all tickets 
 		});
 		
 		app.get("/user/tickets", ctx ->{

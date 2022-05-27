@@ -1,22 +1,14 @@
 package com.revature.ers;
 
-import com.revature.dao.UserDao;
-import com.revature.dao.UserDaoImpl;
-import com.revature.exceptions.InvalidUserTypeException;
-import com.revature.models.User;
-import com.revature.services.UserService;
-import com.revature.services.UserServiceImpl;
+import com.revature.controller.RequestMapper;
+import io.javalin.Javalin;
 
 public class MainDriver {
 	
 	public static void main(String...args) {
-		try {
-			User u = new User(0, "test2", "password", "finance manager");
-			
-		} catch (InvalidUserTypeException e) {
-			e.printStackTrace();
-		}
-		
+		Javalin app = Javalin.create().start(7500);
+		RequestMapper requestMapper = new RequestMapper();
+		requestMapper.configureRoutes(app);
 		
 	}
 }
