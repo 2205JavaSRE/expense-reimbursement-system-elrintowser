@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Built-By: elrin
+Build-Jdk: 17.0.2
+Class-Path: libs/postgresql-42.3.3.jar libs/checker-qual-3.5.0.jar libs/
+ javalin-4.6.0.jar libs/slf4j-api-1.7.36.jar libs/jetty-server-9.4.46.v2
+ 0220331.jar libs/javax.servlet-api-3.1.0.jar libs/jetty-http-9.4.46.v20
+ 220331.jar libs/jetty-util-9.4.46.v20220331.jar libs/jetty-io-9.4.46.v2
+ 0220331.jar libs/jetty-webapp-9.4.46.v20220331.jar libs/jetty-xml-9.4.4
+ 6.v20220331.jar libs/jetty-servlet-9.4.46.v20220331.jar libs/jetty-secu
+ rity-9.4.46.v20220331.jar libs/jetty-util-ajax-9.4.46.v20220331.jar lib
+ s/websocket-server-9.4.46.v20220331.jar libs/websocket-common-9.4.46.v2
+ 0220331.jar libs/websocket-api-9.4.46.v20220331.jar libs/websocket-clie
+ nt-9.4.46.v20220331.jar libs/jetty-client-9.4.46.v20220331.jar libs/web
+ socket-servlet-9.4.46.v20220331.jar libs/kotlin-stdlib-jdk8-1.5.32.jar 
+ libs/kotlin-stdlib-1.5.32.jar libs/annotations-13.0.jar libs/kotlin-std
+ lib-common-1.5.32.jar libs/kotlin-stdlib-jdk7-1.5.32.jar libs/slf4j-sim
+ ple-1.7.31.jar libs/jackson-databind-2.13.2.2.jar libs/jackson-annotati
+ ons-2.13.2.jar libs/jackson-core-2.13.2.jar libs/maven-jar-plugin-3.1.0
+ .jar libs/maven-plugin-api-3.0.jar libs/maven-model-3.0.jar libs/sisu-i
+ nject-plexus-1.4.2.jar libs/sisu-inject-bean-1.4.2.jar libs/sisu-guice-
+ 2.1.7-noaop.jar libs/maven-core-3.0.jar libs/maven-settings-3.0.jar lib
+ s/maven-settings-builder-3.0.jar libs/maven-repository-metadata-3.0.jar
+  libs/maven-model-builder-3.0.jar libs/maven-aether-provider-3.0.jar li
+ bs/aether-impl-1.7.jar libs/aether-spi-1.7.jar libs/aether-api-1.7.jar 
+ libs/aether-util-1.7.jar libs/plexus-interpolation-1.14.jar libs/plexus
+ -classworlds-2.2.3.jar libs/plexus-component-annotations-1.5.5.jar libs
+ /plexus-sec-dispatcher-1.3.jar libs/plexus-cipher-1.4.jar libs/maven-ar
+ tifact-3.0.jar libs/maven-archiver-3.2.0.jar libs/maven-shared-utils-3.
+ 2.0.jar libs/commons-io-2.5.jar libs/plexus-archiver-3.5.jar libs/plexu
+ s-io-3.0.0.jar libs/commons-compress-1.14.jar libs/snappy-0.4.jar libs/
+ xz-1.6.jar libs/plexus-utils-3.1.0.jar
+Main-Class: com.revature.ers.MainDriver
+Created-By: Maven Integration for Eclipse
+
