@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.exceptions.InavlidExpenseTypeException;
 import com.revature.models.Ticket;
+import com.revature.models.User;
 
 public interface TicketDao {
 
@@ -13,10 +14,10 @@ public interface TicketDao {
 
 	List<Ticket> selectAllPastTickets();
 
-	void insertTicket(Ticket t);
+	void insertTicket(Ticket t, int uid);
 
-	List<Ticket> selectTicketsByUser();
+	List<Ticket> selectTicketsByUser(User u);
 
-	List<Ticket> selectPastTicketsByUser();
+	List<Ticket> selectPastTicketsByUser(User u);
 
 }

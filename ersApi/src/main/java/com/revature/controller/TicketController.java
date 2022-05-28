@@ -61,7 +61,7 @@ public class TicketController {
 	public void createTicket(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			ts.addTicket(ctx.bodyAsClass(Ticket.class));
+			ts.addTicket(ctx.bodyAsClass(Ticket.class), u.getId());
 			ctx.status(201);
 		} else {
 			ctx.status(401);

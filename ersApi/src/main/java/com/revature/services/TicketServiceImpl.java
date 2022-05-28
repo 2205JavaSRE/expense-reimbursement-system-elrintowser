@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.List;
+
 import com.revature.dao.TicketDao;
 import com.revature.dao.TicketDaoImpl;
 import com.revature.exceptions.InavlidExpenseTypeException;
@@ -22,37 +24,36 @@ public class TicketServiceImpl implements TicketService {
 				return null;
 			}
 		} catch (InavlidExpenseTypeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public Object getAllTickets() {
+	public List<Ticket> getAllTickets() {
 		return tDao.selectAllTickets();
 		 
 	}
 
 	@Override
-	public Object getPastTickets() {
+	public List<Ticket> getPastTickets() {
 		return tDao.selectAllPastTickets();
 	}
 
 	@Override
-	public void addTicket(Ticket t) {
-		tDao.insertTicket(t);
+	public void addTicket(Ticket t, int uid) {
+		tDao.insertTicket(t, uid);
 		
 	}
 
 	@Override
-	public Object getAllTickets(User u) {
-		return tDao.selectTicketsByUser();
+	public List<Ticket> getAllTickets(User u) {
+		return tDao.selectTicketsByUser(u);
 	}
 
 	@Override
-	public Object getPastTickets(User u) {
-		return tDao.selectPastTicketsByUser();
+	public List<Ticket> getPastTickets(User u) {
+		return tDao.selectPastTicketsByUser(u);
 	}
 
 }
