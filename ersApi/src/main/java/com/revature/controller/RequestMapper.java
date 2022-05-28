@@ -1,7 +1,5 @@
 package com.revature.controller;
 
-import com.revature.models.User;
-
 import io.javalin.Javalin;
 
 public class RequestMapper {
@@ -14,54 +12,29 @@ public class RequestMapper {
 	}
 	
 	public void configureRoutes(Javalin app) {
-		app.post("/get/session", ctx -> {
-			User u = ctx.bodyAsClass(User.class);
-			ctx.sessionAttribute("user",u);
-		});
+		app.post("/get/login", ctx -> userController.login(ctx));
 		
-		app.get("/session/user", ctx ->{
-			User u = ctx.sessionAttribute("user");
-		});
+		app.get("/session/user", ctx -> userController.getSessionUser(ctx));
 		
-		app.get("/session/invalidate", ctx ->{
-			ctx.consumeSessionAttribute("user");
-		});
+		app.get("/session/invalidate", ctx -> ctx.consumeSessionAttribute("user"));
 		
-		app.post("/user/{password}", ctx ->{
-			//update user password
-		});
+		app.post("/user/updatePassword", ctx -> userController.updatePassword(ctx));
 		
-		app.post("/user/{userType}", ctx -> {
-			//update userType
-		});
+		app.post("/user/updateType", ctx -> userController.updateUserType(ctx));
 		
-		app.get("/ticket/{ticketId}", ctx ->{
-			//get ticket by ID
-		});
+		app.get("/ticket/{ticketId}", ctx -> ticketController.getTicketById(ctx));
 		
-		app.get("/tickets", ctx -> {
-			//get all tickets
-		});
+		app.get("/tickets", ctx -> ticketController.getTickets(ctx));
 		
-		app.get("/tickets/past", ctx -> {
-			//get all past tickets
-		});
+		app.get("/tickets/past", ctx -> ticketController.getPastTickets(ctx));
 		
-		app.post("/user", ctx -> {
-			//create user
-		});
+		app.post("/user", ctx -> userController.createUser(ctx));
 		
-		app.post("/user/ticket", ctx -> {
-			//create ticket
-		});
+		app.post("/user/ticket", ctx -> ticketController.createTicket(ctx));
 		
-		app.get("/user/tickets", ctx ->{
-			//get all user tickets
-		});
+		app.get("/user/tickets", ctx -> ticketController.getTicketsByUser(ctx));
 		
-		app.get("/user/pasttickets", ctx -> {
-			//get all user past tickets
-		});
+		app.get("/user/pasttickets", ctx -> ticketController.getPastTicketsByUser(ctx));
 	}
 	
 	
