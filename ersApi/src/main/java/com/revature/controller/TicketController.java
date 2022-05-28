@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import com.revature.exceptions.InvalidAmountException;
 import com.revature.models.Ticket;
 import com.revature.models.User;
 import com.revature.services.TicketService;
@@ -61,8 +62,13 @@ public class TicketController {
 	public void createTicket(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			ts.addTicket(ctx.bodyAsClass(Ticket.class), u.getId());
-			ctx.status(201);
+			try {
+				ts.addTicket(ctx.bodyAsClass(Ticket.class), u.getId());
+				ctx.status(201);
+			} catch (InvalidAmountException e) {
+				ctx.status(400);
+			}
+			
 		} else {
 			ctx.status(401);
 		}
