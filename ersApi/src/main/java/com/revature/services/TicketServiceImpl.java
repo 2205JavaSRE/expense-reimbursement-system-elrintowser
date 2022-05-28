@@ -18,7 +18,6 @@ public class TicketServiceImpl implements TicketService {
 		Ticket t;
 		try {
 			t = tDao.selectTicketById(id);
-			System.out.println(t);
 			if(u.getUserType().equals("finance manager")||u.getId() == t.getuId()) {
 				return t;
 			}else {
@@ -58,6 +57,16 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public List<Ticket> getPastTickets(User u) {
 		return tDao.selectPastTicketsByUser(u);
+	}
+
+	@Override
+	public void approveTicket(Ticket t) {
+		tDao.approveTicket(t);
+	}
+
+	@Override
+	public void declineTicket(Ticket t) {
+		tDao.declineTicket(t);
 	}
 
 }

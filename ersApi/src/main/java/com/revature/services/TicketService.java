@@ -12,5 +12,7 @@ public interface TicketService {
 	void addTicket(Ticket t, int uid) throws InvalidAmountException;
 	Object getAllTickets(User u);
 	Object getPastTickets(User u);
+	void approveTicket(Ticket t);
+	void declineTicket(Ticket t);
 
 }

@@ -109,7 +109,7 @@ public class TicketDaoImpl implements TicketDao {
 
 	@Override
 	public List<Ticket> selectTicketsByUser(User u) {
-List<Ticket> ticketList = new ArrayList<>();
+		List<Ticket> ticketList = new ArrayList<>();
 		
 		String sql = "SELECT * FROM ticket WHERE l_id = ?";
 		Connection conn =ConnectionFactory.getConnection();
@@ -136,7 +136,7 @@ List<Ticket> ticketList = new ArrayList<>();
 
 	@Override
 	public List<Ticket> selectPastTicketsByUser(User u) {
-List<Ticket> ticketList = new ArrayList<>();
+		List<Ticket> ticketList = new ArrayList<>();
 		
 		String sql = "SELECT * FROM ticket WHERE (status = 'approved' OR status = 'declined') AND l_id = ?";
 		Connection conn =ConnectionFactory.getConnection();
@@ -158,6 +158,34 @@ List<Ticket> ticketList = new ArrayList<>();
 			e.printStackTrace();
 		}
 		return ticketList;
+	}
+
+	@Override
+	public void approveTicket(Ticket t) {
+		String sql = "UPDATE ticket SET status = 'approved' WHERE id = ?";
+		Connection conn =ConnectionFactory.getConnection();
+
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setInt(1, t.getId());
+			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void declineTicket(Ticket t) {
+		String sql = "UPDATE ticket SET status = 'declined' WHERE id = ?";
+		Connection conn =ConnectionFactory.getConnection();
+
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setInt(1, t.getId());
+			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

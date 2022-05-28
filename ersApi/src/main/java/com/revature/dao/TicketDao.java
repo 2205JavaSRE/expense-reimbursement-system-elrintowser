@@ -20,4 +20,8 @@ public interface TicketDao {
 
 	List<Ticket> selectPastTicketsByUser(User u);
 
+	void approveTicket(Ticket t);
+
+	void declineTicket(Ticket t);
+
 }

@@ -14,7 +14,6 @@ public class TicketController {
 	
 	public void getTicketById(Context ctx) {
 		User u = ctx.sessionAttribute("user");
-		System.out.println("ticket controller");
 		if(u!=null) {
 			Ticket t = ts.getTicketById(Integer.parseInt(ctx.formParam("ticketID")), u);
 			
@@ -88,6 +87,26 @@ public class TicketController {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
 			ctx.json(ts.getPastTickets(u));
+			ctx.status(200);
+		} else {
+			ctx.status(401);
+		}
+	}
+
+	public void approveTicket(Context ctx) {
+		User u = ctx.sessionAttribute("user");
+		if(u!=null && u.getUserType().equals("finance manager")) {
+			ts.approveTicket(ctx.bodyAsClass(Ticket.class));
+			ctx.status(200);
+		} else {
+			ctx.status(401);
+		}
+	}
+
+	public void declineTicket(Context ctx) {
+		User u = ctx.sessionAttribute("user");
+		if(u!=null && u.getUserType().equals("finance manager")) {
+			ts.declineTicket(ctx.bodyAsClass(Ticket.class));
 			ctx.status(200);
 		} else {
 			ctx.status(401);
