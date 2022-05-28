@@ -13,8 +13,10 @@ public class TicketController {
 	
 	public void getTicketById(Context ctx) {
 		User u = ctx.sessionAttribute("user");
+		System.out.println("ticket controller");
 		if(u!=null) {
-			Ticket t = ts.getTicketById((int)ctx.sessionAttribute("ticketID"), u);
+			Ticket t = ts.getTicketById(Integer.parseInt(ctx.formParam("ticketID")), u);
+			
 			if (t != null) {
 				ctx.json(t);
 				ctx.status(200);
@@ -29,7 +31,7 @@ public class TicketController {
 	public void getTickets(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			if (u.getUserType().equals("Finance Manager")) {
+			if (u.getUserType().equals("finance manager")) {
 				ctx.json(ts.getAllTickets());
 				ctx.status(200);
 			} else {
@@ -43,7 +45,7 @@ public class TicketController {
 	public void getPastTickets(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			if (u.getUserType().equals("Finance Manager")) {
+			if (u.getUserType().equals("finance manager")) {
 				ctx.json(ts.getPastTickets());
 				ctx.status(200);
 			} else {

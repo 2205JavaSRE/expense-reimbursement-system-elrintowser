@@ -2,6 +2,7 @@ package com.revature.services;
 
 import com.revature.dao.TicketDao;
 import com.revature.dao.TicketDaoImpl;
+import com.revature.exceptions.InavlidExpenseTypeException;
 import com.revature.models.Ticket;
 import com.revature.models.User;
 
@@ -11,12 +12,20 @@ public class TicketServiceImpl implements TicketService {
 	
 	@Override
 	public Ticket getTicketById(int id, User u) {
-		Ticket t = tDao.selectTicketById(id);
-		if(u.getUserType().equals("Finance Manager")||u.getId() == t.getuId()) {
-			return t;
-		}else {
-			return null;
+		Ticket t;
+		try {
+			t = tDao.selectTicketById(id);
+			System.out.println(t);
+			if(u.getUserType().equals("finance manager")||u.getId() == t.getuId()) {
+				return t;
+			}else {
+				return null;
+			}
+		} catch (InavlidExpenseTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	@Override
@@ -32,7 +41,7 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public void addTicket(Ticket t) {
-		tDao.insertTicket();
+		tDao.insertTicket(t);
 		
 	}
 
@@ -45,7 +54,5 @@ public class TicketServiceImpl implements TicketService {
 	public Object getPastTickets(User u) {
 		return tDao.selectPastTicketsByUser();
 	}
-
-
 
 }

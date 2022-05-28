@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import com.revature.exceptions.InvalidUserTypeException;
 import com.revature.models.User;
 import com.revature.services.UserService;
 import com.revature.services.UserServiceImpl;
@@ -24,8 +25,13 @@ public class UserController {
 
 	public void getSessionUser(Context ctx) {
 		User u = ctx.sessionAttribute("user");
-		u.setPassword(null);
-		ctx.json(u);		
+		if (u != null) {
+			u.setPassword(null);
+			ctx.json(u);
+			ctx.status(200);
+		} else {
+			ctx.status(401);
+		}
 	}
 
 	public void updatePassword(Context ctx) {
@@ -40,7 +46,11 @@ public class UserController {
 
 	public void updateUserType(Context ctx) {
 		if(ctx.sessionAttribute("user") != null) {
-			us.updatePassword(ctx.sessionAttribute("user"), ctx.formParam("userType"));
+			try {
+				us.updateUserType(ctx.sessionAttribute("user"), ctx.formParam("userType"));
+			} catch (InvalidUserTypeException e) {
+				e.printStackTrace();
+			}
 			ctx.status(200);
 		} else {
 			ctx.status(401);
@@ -50,7 +60,7 @@ public class UserController {
 	public void createUser(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			if (u.getUserType().equals("Finance Manager")) {
+			if (u.getUserType().equals("finance manager")) {
 				us.addUser(ctx.bodyAsClass(User.class));
 				ctx.status(200);
 			} else {
