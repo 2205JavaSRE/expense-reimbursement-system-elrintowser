@@ -15,7 +15,7 @@ public class TicketController {
 	public void getTicketById(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			Ticket t = ts.getTicketById(Integer.parseInt(ctx.formParam("ticketID")), u);
+			Ticket t = ts.getTicketById(ctx.bodyAsClass(Ticket.class).getId(), u);
 			
 			if (t != null) {
 				ctx.json(t);

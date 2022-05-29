@@ -47,7 +47,7 @@ public class UserController {
 	public void updateUserType(Context ctx) {
 		if(ctx.sessionAttribute("user") != null) {
 			try {
-				us.updateUserType(ctx.sessionAttribute("user"), ctx.formParam("userType"));
+				us.updateUserType(ctx.sessionAttribute("user"), ctx.bodyAsClass(User.class).getUserType());
 			} catch (InvalidUserTypeException e) {
 				e.printStackTrace();
 			}
