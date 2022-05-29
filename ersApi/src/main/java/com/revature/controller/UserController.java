@@ -36,7 +36,7 @@ public class UserController {
 
 	public void updatePassword(Context ctx) {
 		if(ctx.sessionAttribute("user") != null) {
-			us.updatePassword(ctx.sessionAttribute("user"), ctx.formParam("password"));
+			us.updatePassword(ctx.sessionAttribute("user"), ctx.bodyAsClass(User.class).getPassword());
 			ctx.status(200);
 		} else {
 			ctx.status(401);
