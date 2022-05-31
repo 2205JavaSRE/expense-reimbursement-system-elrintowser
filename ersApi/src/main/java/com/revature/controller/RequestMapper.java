@@ -28,13 +28,19 @@ public class RequestMapper {
 		
 		app.get("/tickets", ctx -> ticketController.getTickets(ctx));
 		
-		app.get("/tickets/past", ctx -> ticketController.getPastTickets(ctx));
+		app.get("/tickets/approved", ctx -> ticketController.getApprovedTickets(ctx));
+		
+		app.get("/tickets/pending", ctx -> ticketController.getPendingTickets(ctx));
+		
+		app.get("/tickets/declined", ctx -> ticketController.getDeclinedTickets(ctx));
 		
 		app.post("/user/ticket", ctx -> ticketController.createTicket(ctx));
 		
-		app.get("/user/tickets", ctx -> ticketController.getTicketsByUser(ctx));
+		app.get("/user/pending", ctx -> ticketController.getPendingTicketsByUser(ctx));
 		
-		app.get("/user/pasttickets", ctx -> ticketController.getPastTicketsByUser(ctx));
+		app.get("/user/approved", ctx -> ticketController.getApprovedTicketsByUser(ctx));
+		
+		app.get("/user/declined", ctx -> ticketController.getDeclinedTicketsByUser(ctx));
 		
 		app.post("/ticket/approve", ctx -> ticketController.approveTicket(ctx));
 		

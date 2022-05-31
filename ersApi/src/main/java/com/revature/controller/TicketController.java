@@ -42,11 +42,11 @@ public class TicketController {
 		}
 	}
 
-	public void getPastTickets(Context ctx) {
+	public void getApprovedTickets(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
 			if (u.getUserType().equals("finance manager")) {
-				ctx.json(ts.getPastTickets());
+				ctx.json(ts.getApprovedTickets());
 				ctx.status(200);
 			} else {
 				ctx.status(401);
@@ -56,7 +56,33 @@ public class TicketController {
 		}
 	}
 
+	public void getPendingTickets(Context ctx) {
+		User u = ctx.sessionAttribute("user");
+		if(u!=null) {
+			if (u.getUserType().equals("finance manager")) {
+				ctx.json(ts.getPendingTickets());
+				ctx.status(200);
+			} else {
+				ctx.status(401);
+			}
+		}else {
+			ctx.status(401);
+		}
+	}
 	
+	public void getDeclinedTickets(Context ctx) {
+		User u = ctx.sessionAttribute("user");
+		if(u!=null) {
+			if (u.getUserType().equals("finance manager")) {
+				ctx.json(ts.getDeclinedTickets());
+				ctx.status(200);
+			} else {
+				ctx.status(401);
+			}
+		}else {
+			ctx.status(401);
+		}
+	}
 
 	public void createTicket(Context ctx) {
 		User u = ctx.sessionAttribute("user");
@@ -73,25 +99,36 @@ public class TicketController {
 		}
 	}
 
-	public void getTicketsByUser(Context ctx) {
+	public void getPendingTicketsByUser(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			ctx.json(ts.getAllTickets(u));
+			ctx.json(ts.getPendingTickets(u));
 			ctx.status(200);
 		} else {
 			ctx.status(401);
 		}
 	}
 
-	public void getPastTicketsByUser(Context ctx) {
+	public void getApprovedTicketsByUser(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			ctx.json(ts.getPastTickets(u));
+			ctx.json(ts.getApprovedTickets(u));
 			ctx.status(200);
 		} else {
 			ctx.status(401);
 		}
 	}
+	
+	public void getDeclinedTicketsByUser(Context ctx) {
+		User u = ctx.sessionAttribute("user");
+		if(u!=null) {
+			ctx.json(ts.getDeclinedTickets(u));
+			ctx.status(200);
+		} else {
+			ctx.status(401);
+		}
+	}
+
 
 	public void approveTicket(Context ctx) {
 		User u = ctx.sessionAttribute("user");
@@ -112,5 +149,7 @@ public class TicketController {
 			ctx.status(401);
 		}
 	}
+
+	
 
 }

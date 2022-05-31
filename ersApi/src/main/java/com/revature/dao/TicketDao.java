@@ -11,14 +11,20 @@ public interface TicketDao {
 	Ticket selectTicketById(int id) throws InavlidExpenseTypeException;
 
 	List<Ticket> selectAllTickets();
+	
+	List<Ticket> selectPendingTickets();
 
-	List<Ticket> selectAllPastTickets();
+	List<Ticket> selectApprovedTickets();
+	
+	List<Ticket> selectDeclinedTickets();
 
 	void insertTicket(Ticket t, int uid);
 
-	List<Ticket> selectTicketsByUser(User u);
+	List<Ticket> selectPendingTicketsByUser(User u);
 
-	List<Ticket> selectPastTicketsByUser(User u);
+	List<Ticket> selectApprovedTicketsByUser(User u);
+	
+	List<Ticket> selectDeclinedTicketsByUser(User u);
 
 	void approveTicket(Ticket t);
 

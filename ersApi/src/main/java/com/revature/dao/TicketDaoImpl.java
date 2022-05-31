@@ -65,10 +65,10 @@ public class TicketDaoImpl implements TicketDao {
 	}
 
 	@Override
-	public List<Ticket> selectAllPastTickets() {
+	public List<Ticket> selectPendingTickets() {
 		List<Ticket> ticketList = new ArrayList<>();
 		
-		String sql = "SELECT * FROM ticket WHERE status = 'approved' OR status = 'declined'";
+		String sql = "SELECT * FROM ticket WHERE status = 'pending'";
 		Connection conn =ConnectionFactory.getConnection();
 		Ticket t = null;
 		try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -108,10 +108,10 @@ public class TicketDaoImpl implements TicketDao {
 	}
 
 	@Override
-	public List<Ticket> selectTicketsByUser(User u) {
+	public List<Ticket> selectPendingTicketsByUser(User u) {
 		List<Ticket> ticketList = new ArrayList<>();
 		
-		String sql = "SELECT * FROM ticket WHERE l_id = ?";
+		String sql = "SELECT * FROM ticket WHERE l_id = ? AND status = 'pending'";
 		Connection conn =ConnectionFactory.getConnection();
 		Ticket t = null;
 		try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -135,10 +135,10 @@ public class TicketDaoImpl implements TicketDao {
 	}
 
 	@Override
-	public List<Ticket> selectPastTicketsByUser(User u) {
+	public List<Ticket> selectApprovedTicketsByUser(User u) {
 		List<Ticket> ticketList = new ArrayList<>();
 		
-		String sql = "SELECT * FROM ticket WHERE (status = 'approved' OR status = 'declined') AND l_id = ?";
+		String sql = "SELECT * FROM ticket WHERE status = 'approved' AND l_id = ?";
 		Connection conn =ConnectionFactory.getConnection();
 		Ticket t = null;
 		try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -186,6 +186,84 @@ public class TicketDaoImpl implements TicketDao {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public List<Ticket> selectDeclinedTicketsByUser(User u) {
+List<Ticket> ticketList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM ticket WHERE status = 'declined' AND l_id = ?";
+		Connection conn =ConnectionFactory.getConnection();
+		Ticket t = null;
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setInt(1, u.getId());
+			ResultSet rs =ps.executeQuery();
+			
+			while(rs.next()) {
+				t = new Ticket(
+						rs.getInt("id"), 
+						rs.getDouble("amt"),
+						rs.getString("expense_type"),
+						rs.getInt("l_id"),
+						rs.getString("status"));
+				ticketList.add(t);
+			}
+		} catch (SQLException|InavlidExpenseTypeException|InvalidStatusException e) {
+			e.printStackTrace();
+		}
+		return ticketList;
+	}
+
+	@Override
+	public List<Ticket> selectApprovedTickets() {
+List<Ticket> ticketList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM ticket WHERE status = 'approved'";
+		Connection conn =ConnectionFactory.getConnection();
+		Ticket t = null;
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ResultSet rs =ps.executeQuery();
+			
+			while(rs.next()) {
+				t = new Ticket(
+						rs.getInt("id"), 
+						rs.getDouble("amt"),
+						rs.getString("expense_type"),
+						rs.getInt("l_id"),
+						rs.getString("status"));
+				ticketList.add(t);
+			}
+		} catch (SQLException|InavlidExpenseTypeException|InvalidStatusException e) {
+			e.printStackTrace();
+		}
+		
+		return ticketList;
+	}
+
+	@Override
+	public List<Ticket> selectDeclinedTickets() {
+List<Ticket> ticketList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM ticket WHERE status = 'declined'";
+		Connection conn =ConnectionFactory.getConnection();
+		Ticket t = null;
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ResultSet rs =ps.executeQuery();
+			
+			while(rs.next()) {
+				t = new Ticket(
+						rs.getInt("id"), 
+						rs.getDouble("amt"),
+						rs.getString("expense_type"),
+						rs.getInt("l_id"),
+						rs.getString("status"));
+				ticketList.add(t);
+			}
+		} catch (SQLException|InavlidExpenseTypeException|InvalidStatusException e) {
+			e.printStackTrace();
+		}
+		
+		return ticketList;
 	}
 
 }

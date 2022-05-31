@@ -35,10 +35,7 @@ public class TicketServiceImpl implements TicketService {
 		 
 	}
 
-	@Override
-	public List<Ticket> getPastTickets() {
-		return tDao.selectAllPastTickets();
-	}
+	
 
 	@Override
 	public void addTicket(Ticket t, int uid) throws InvalidAmountException {
@@ -50,13 +47,13 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public List<Ticket> getAllTickets(User u) {
-		return tDao.selectTicketsByUser(u);
+	public List<Ticket> getPendingTickets(User u) {
+		return tDao.selectPendingTicketsByUser(u);
 	}
 
 	@Override
-	public List<Ticket> getPastTickets(User u) {
-		return tDao.selectPastTicketsByUser(u);
+	public List<Ticket> getApprovedTickets(User u) {
+		return tDao.selectApprovedTicketsByUser(u);
 	}
 
 	@Override
@@ -67,6 +64,27 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public void declineTicket(Ticket t) {
 		tDao.declineTicket(t);
+	}
+
+	@Override
+	public List<Ticket> getDeclinedTickets(User u) {
+		return tDao.selectDeclinedTicketsByUser(u);
+	}
+
+
+	@Override
+	public List<Ticket> getPendingTickets() {
+		return tDao.selectPendingTickets();
+	}
+
+	@Override
+	public List<Ticket> getApprovedTickets() {
+		return tDao.selectApprovedTickets();
+	}
+
+	@Override
+	public List<Ticket> getDeclinedTickets() {
+		return tDao.selectDeclinedTickets();
 	}
 
 }
