@@ -1,10 +1,13 @@
-FROM openjdk:8-jdk
+#Building stage
+FROM maven:3.8.5-eclipse-temurin-8-alpine AS MAVEN_BUILD
+COPY ./ ./
 
-ADD mainDriver-0.0.1-SNAPSHOT.jar mainDriver-0.0.1-SNAPSHOT.jar
-ADD /libs /libs
-ENV db_url=jdbc:postgresql://ers-database.cxzigkpx8vgp.us-east-1.rds.amazonaws.com:5432/postgres
-ENV db_username=elrin
-ENV db_password=bilbo123
+RUN mvn clean package
 
+#Distributable
+FROM openjdk:8-jre
 
-CMD ["java","-jar","mainDriver-0.0.1-SNAPSHOT.jar"]
+COPY --from=MAVEN_BUILD /target/ ./
+
+CMD ["java","-jar","/mainDriver-0.0.1-SNAPSHOT.jar"]
+

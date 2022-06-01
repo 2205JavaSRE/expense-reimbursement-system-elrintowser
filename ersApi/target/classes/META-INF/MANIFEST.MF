@@ -28,7 +28,12 @@ Class-Path: libs/postgresql-42.3.3.jar libs/checker-qual-3.5.0.jar libs/
  tifact-3.0.jar libs/maven-archiver-3.2.0.jar libs/maven-shared-utils-3.
  2.0.jar libs/commons-io-2.5.jar libs/plexus-archiver-3.5.jar libs/plexu
  s-io-3.0.0.jar libs/commons-compress-1.14.jar libs/snappy-0.4.jar libs/
- xz-1.6.jar libs/plexus-utils-3.1.0.jar
+ xz-1.6.jar libs/plexus-utils-3.1.0.jar libs/micrometer-core-1.8.5.jar l
+ ibs/HdrHistogram-2.1.12.jar libs/LatencyUtils-2.0.3.jar libs/micrometer
+ -registry-prometheus-1.8.5.jar libs/simpleclient_common-0.12.0.jar libs
+ /simpleclient-0.12.0.jar libs/simpleclient_tracer_otel-0.12.0.jar libs/
+ simpleclient_tracer_common-0.12.0.jar libs/simpleclient_tracer_otel_age
+ nt-0.12.0.jar
 Main-Class: com.revature.ers.MainDriver
 Created-By: Maven Integration for Eclipse
 

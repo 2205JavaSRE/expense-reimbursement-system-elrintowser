@@ -1,5 +1,7 @@
 package com.revature.controller;
 
+import com.revature.monitor.Monitor;
+
 import io.javalin.Javalin;
 
 public class RequestMapper {
@@ -11,8 +13,11 @@ public class RequestMapper {
 		super();
 	}
 	
-	public void configureRoutes(Javalin app) {
-		app.post("/get/login", ctx -> userController.login(ctx));
+	public void configureRoutes(Javalin app, Monitor monitor) {
+		app.post("/get/login", ctx -> {
+			userController.login(ctx);
+			monitor.loginCounter();
+		});
 		
 		app.get("/session/user", ctx -> userController.getSessionUser(ctx));
 		
@@ -45,6 +50,8 @@ public class RequestMapper {
 		app.post("/ticket/approve", ctx -> ticketController.approveTicket(ctx));
 		
 		app.post("/ticket/decline", ctx -> ticketController.declineTicket(ctx));
+		
+		app.get("/metrics", ctx -> ctx.result(Monitor.registry.scrape()));
 	}
 	
 	
