@@ -15,7 +15,7 @@ public class UserController {
 	public void login(Context ctx) {
 		User u = ctx.bodyAsClass(User.class);
 		if (us.authenticate(u.getUsername(), u.getPassword())) {
-			ctx.sessionAttribute("user", u);
+			ctx.sessionAttribute("user", us.getUserByUsername(u.getUsername()));
 			ctx.status(HttpCode.OK);
 		} else {
 			ctx.status(401);
