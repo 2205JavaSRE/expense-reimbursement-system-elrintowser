@@ -5,12 +5,15 @@ import com.revature.models.Ticket;
 import com.revature.models.User;
 import com.revature.services.TicketService;
 import com.revature.services.TicketServiceImpl;
+import com.revature.services.UserService;
+import com.revature.services.UserServiceImpl;
 
 import io.javalin.http.Context;
 
 public class TicketController {
 	
 	private TicketService ts = new TicketServiceImpl();
+	private UserService us = new UserServiceImpl();
 	
 	public void getTicketById(Context ctx) {
 		User u = ctx.sessionAttribute("user");
@@ -101,9 +104,17 @@ public class TicketController {
 
 	public void getPendingTicketsByUser(Context ctx) {
 		User u = ctx.sessionAttribute("user");
+		
 		if(u!=null) {
-			ctx.json(ts.getPendingTickets(u));
-			ctx.status(200);
+			if (u.getUserType().equals("finance manage")) {
+				User targetUser = ctx.bodyAsClass(User.class);
+				targetUser = us.getUserByUsername(targetUser.getUsername());
+				ctx.json(ts.getPendingTickets(targetUser));
+				ctx.status(200);
+			} else {
+				ctx.json(ts.getPendingTickets(u));
+				ctx.status(200);
+			}
 		} else {
 			ctx.status(401);
 		}
@@ -112,8 +123,15 @@ public class TicketController {
 	public void getApprovedTicketsByUser(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			ctx.json(ts.getApprovedTickets(u));
-			ctx.status(200);
+			if (u.getUserType().equals("finance manage")) {
+				User targetUser = ctx.bodyAsClass(User.class);
+				targetUser = us.getUserByUsername(targetUser.getUsername());
+				ctx.json(ts.getApprovedTickets(targetUser));
+				ctx.status(200);
+			} else {
+				ctx.json(ts.getApprovedTickets(u));
+				ctx.status(200);
+			}
 		} else {
 			ctx.status(401);
 		}
@@ -122,8 +140,15 @@ public class TicketController {
 	public void getDeclinedTicketsByUser(Context ctx) {
 		User u = ctx.sessionAttribute("user");
 		if(u!=null) {
-			ctx.json(ts.getDeclinedTickets(u));
-			ctx.status(200);
+			if (u.getUserType().equals("finance manage")) {
+				User targetUser = ctx.bodyAsClass(User.class);
+				targetUser = us.getUserByUsername(targetUser.getUsername());
+				ctx.json(ts.getDeclinedTickets(targetUser));
+				ctx.status(200);
+			} else {
+				ctx.json(ts.getDeclinedTickets(u));
+				ctx.status(200);
+			}
 		} else {
 			ctx.status(401);
 		}
